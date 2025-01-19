@@ -1,0 +1,8 @@
+Flask==1.1.2
+numpy==1.24.0
+numpy==1.21.5
+numpy==1.21.6
+numpy==1.24.4
+pandas==1.4.4
+pyecharts==2.0.4
+PyMySQL==1.1.0

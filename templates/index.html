@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>数据大屏可视化</title>
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+    <link rel="stylesheet" href="/static/css/comon0.css">
+    <script type="text/javascript" src="/static/js/echarts.js"></script>
+    <script type="text/javascript" src="/static/js/echarts.min.js"></script>
+    <script type="text/javascript" src="/static/js/vintage.js"></script>
+    <script type="text/javascript" src="/static/js/essos.js"></script>
+    <script type="text/javascript" src="/static/js/dark.js"></script>
+    <script type="text/javascript" src="/static/js/customed.js"></script>
+    <script type="text/javascript" src="/static/js/shine.js"></script>
+    <script type="text/javascript" src="/static/js/roma.js"></script>
+    <script type="text/javascript" src="/static/js/macarons.js"></script>
+    <script type="text/javascript" src="/static/js/infographic.js"></script>
+    <script type="text/javascript" src="/static/js/draw_map.js"></script>
+    <script type="text/javascript" src="/static/js/draw_1.js"></script>、
+    <script type="text/javascript" src="/static/js/draw_2.js"></script>、
+    <script type="text/javascript" src="/static/js/draw_3.js"></script>
+    <script type="text/javascript" src="/static/js/draw_4.js"></script>
+    <script type="text/javascript" src="/static/js/draw_5.js"></script>
+    <script type="text/javascript" src="/static/js/draw_6.js"></script>
+</head>
+<script>
+    $(window).load(function () {
+        $(".loading").fadeOut()
+    })
+  $(document).ready(function () {
+        var whei = $(window).width()
+        $("html").css({ fontSize: whei / 20 })
+        $(window).resize(function () {
+            var whei = $(window).width()
+            $("html").css({ fontSize: whei / 20 })
+        });
+    });
+</script>
+<body>
+<div class="canvas" style="opacity: .2">
+        <iframe frameborder="0" src="/static/js/index.html" style="width: 100%; height: 100%"></iframe>
+    </div>
+    <div class="loading">
+        <div class="loadbox"> <img src="/static/images/loading.gif"> 页面加载中... </div>
+    </div>
+    <div class="head">
+        <h1>2005-2012全国某航空公司乘客信息数据可视化大屏</h1>
+        <script>
+            var t = null;
+            t = setTimeout(time, 1000);
+            function time() {
+                clearTimeout(t);
+                dt = new Date();
+                var y = dt.getFullYear();
+                var mt = dt.getMonth() + 1;
+                var day = dt.getDate();
+                var h = dt.getHours();
+                var m = dt.getMinutes();
+                var s = dt.getSeconds();
+                document.getElementById("showTime").innerHTML = y + "年" + mt + "月" + day + "-" + h + "时" + m + "分" + s + "秒";
+                t = setTimeout(time, 1000);
+            }
+       </script>
+   </div>
+    <div class="mainbox">
+        <ul class="clearfix">
+            <li>
+                <div class="boxall" style="height: 3.2rem">
+                    <div class="alltitle">2005-2012期间乘客平均年龄和平均出行次数</div>
+                    <div class="allnav" style="width: 400px;height:200px;" id="draw_1"></div>
+                    <div class="boxfoot"></div>
+                </div>
+                 <div class="boxall" style="height: 3.2rem">
+                    <div class="alltitle">2005-2012年期间排名前10的城市乘客活跃总时长</div>
+                    <div class="allnav" style="width: 400px;height:200px" id="draw_2"></div>
+                    <div class="boxfoot"></div>
+                </div>
+                <div class="boxall" style="height: 3.2rem">
+                    <div class="alltitle">2005-2012年期间不同活跃程度区间内的乘客数量占比</div>
+                    <div class="allnav" style="width: 400px;height:200px;" id="draw_3"></div>
+                    <div class="boxfoot"></div>
+                </div>
+
+            </li>
+            <li>
+                <div class="bar">
+                    <div class="barbox">
+                        <ul class="clearfix">
+                            <li class="pulll_left counter">{{ mid_data[0]|tojson }}</li>
+                            <li class="pulll_left counter">{{ mid_data[1]|tojson }}</li>
+                        </ul>
+                    </div>
+                    <div class="barbox2">
+                        <ul class="clearfix">
+                            <li class="pulll_left">乘客总访问量</li>
+                            <li class="pulll_left">乘客总飞行次数</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="map">
+                    <div class="map1"><img src="/static/images/lbx.png"></div>
+                    <div class="map2"><img src="/static/images/jt.png"></div>
+                    <div class="map3"><img src="/static/images/map.png"></div>
+                    <div class="map4" id="map_1"></div>
+                </div>
+            </li>
+            <li>
+                <div class="boxall" style="height:3.4rem">
+                    <div class="alltitle">2005-2012期间乘客平均乘机时间间隔和平均总飞行公里数(实际公里数*100)</div>
+                    <div class="allnav" style="width: 400px;height:200px" id="draw_4"></div>
+                    <div class="boxfoot"></div>
+                </div>
+                <div class="boxall" style="height: 3.2rem">
+                    <div class="alltitle">2005-2012期间乘客会员级别与平均折扣率之间的关系</div>
+                    <div class="allnav " style="width: 400px;height:200px" id="draw_5"></div>
+                    <div class="boxfoot"></div>
+                </div>
+                <div class="boxall" style="height: 3rem">
+                    <div class="alltitle">2005-2012年期间不同总累计积分区间内的乘客数量占比</div>
+                    <div class="allnav" id="draw_6"  style="width: 400px;height: 200px;"></div>
+                    <div class="boxfoot"></div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="back"></div>
+    <script type="text/javascript" src="/static/js/china.js"></script>
+    <script type="text/javascript" src="/static/js/area_echarts.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        var data = {{ map_data|tojson }};
+        var mean_data = {{ draw_data_1|tojson }};
+        var time_data = {{ draw_data_2|tojson }};
+        var activity_data = {{ draw_data_3|tojson }};
+        var kilo_data = {{ draw_data_4|tojson }};
+        var card_data = {{ draw_data_5|tojson }};
+        var total_data = {{ draw_data_6|tojson }};
+        map(data);
+        draw_1(mean_data)
+        draw_2(time_data);
+        draw_3(activity_data);
+        draw_4(kilo_data);
+        draw_5(card_data);
+        draw_6(total_data);
+      });
+    </script>
+</body>
+</html>
